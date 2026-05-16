@@ -66,7 +66,7 @@ export default function App() {
 
         <div className="nav-right">
           <div className={`nav-dot ${online ? "online" : "offline"}`} />
-          <span className="nav-status">
+          <span className={`nav-status ${online ? "online" : "offline"}`}>
             API {online ? "Online" : "Offline"}
           </span>
         </div>
