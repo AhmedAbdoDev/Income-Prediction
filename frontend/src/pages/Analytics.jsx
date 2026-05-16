@@ -2,56 +2,48 @@ const CHARTS = [
   {
     file: "target_distribution_pie.png",
     title: "Income Distribution",
-    percentage: "52%",
     color: "#00d4ff",
   },
 
   {
     file: "correlation_heatmap.png",
     title: "Correlation Heatmap",
-    percentage: "91%",
     color: "#00ff88",
   },
 
   {
     file: "age_hist.png",
     title: "Age vs Income",
-    percentage: "78%",
     color: "#00d4ff",
   },
 
   {
     file: "hours-per-week_hist.png",
     title: "Hours/Week vs Income",
-    percentage: "84%",
     color: "#00ff88",
   },
 
   {
     file: "sex_stacked.png",
     title: "Sex vs Income",
-    percentage: "69%",
     color: "#00d4ff",
   },
 
   {
     file: "education_stacked.png",
     title: "Education vs Income",
-    percentage: "88%",
     color: "#00ff88",
   },
 
   {
     file: "occupation_stacked.png",
     title: "Occupation vs Income",
-    percentage: "74%",
     color: "#00d4ff",
   },
 
   {
     file: "capital_category_vs_income.png",
     title: "Capital Category vs Income",
-    percentage: "95%",
     color: "#00ff88",
   },
 ];
@@ -190,38 +182,19 @@ export default function Analytics() {
 
       <div className="analytics-grid">
         {CHARTS.map((c) => {
-          const value = parseInt(c.percentage);
-
           return (
             <div key={c.file} className="chart-card">
               <div className="chart-card-header">{c.title}</div>
 
-              {/* PERCENTAGE */}
-
-              <div className="chart-progress">
-                <div
-                  className="progress-ring"
-                  style={{
-                    background: `conic-gradient(
-                      ${c.color} ${value * 3.6}deg,
-                      rgba(255,255,255,0.06) 0deg
-                    )`,
-                  }}
-                >
-                  <div className="progress-inner">
-                    <span>{c.percentage}</span>
-                  </div>
-                </div>
-              </div>
-
               {/* IMAGE */}
 
               <img
-                src={`http://127.0.0.1:8000/analytics/${c.file}`}
+                src={`/Income-Prediction/analytics/${c.file}`}
                 alt={c.title}
                 onError={(e) => {
                   e.target.style.display = "none";
                 }}
+                loading="lazy"
               />
             </div>
           );
