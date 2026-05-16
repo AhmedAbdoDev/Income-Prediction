@@ -43,6 +43,7 @@ body {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
+  align-items: center;
   height: 68px;
   padding: 0 2.5rem;
   background: #060a10;
@@ -50,7 +51,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .navbar::after {
@@ -152,10 +153,92 @@ body {
   letter-spacing: 0.08em;
 }
 .nav-status.offline {
-  background: rgba(255, 77, 109, 0.07); /* لون أحمر شفاف جداً للخلفية */
-  border: 0.5px solid rgba(255, 77, 109, 0.2); /* إطار أحمر شفاف */
-  color: var(--danger); /* استخدام متغير اللون الأحمر للتكست */
+  background: rgba(255, 77, 109, 0.07);
+  border: 0.5px solid rgba(255, 77, 109, 0.2);
 }
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 22px;
+  height: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 110;
+}
+
+.menu-toggle span {
+  width: 100%;
+  height: 2px;
+  background-color: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .menu-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+    background-color: var(--accent);
+  }
+  .menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+    background-color: var(--accent);
+  }
+  .nav-center {
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 8px;
+    background: #080c14;
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+
+    transform: translateY(-150%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s ease;
+    z-index: 99;
+  }
+
+  .nav-center.menu-show {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-btn {
+    width: 100%;
+    padding: 12px;
+    text-align: center;
+    border-radius: 6px;
+  }
+
+  .nav-btn.active {
+    background: rgba(0, 212, 255, 0.08);
+  }
+
+  .navbar {
+    padding: 0 1.5rem;
+  }
+
+  .nav-status {
+    display: none;
+  }
+}
+
 /* ─── METRICS BAR ─── */
 .metrics-bar {
   display: grid;
@@ -248,8 +331,15 @@ body {
 /* ─── FORM ─── */
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 16px;
+}
+
+/* الشاشات المتوسطة والكبيرة (التابلت والشاشات الكبيرة) */
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: repeat(3, 1fr); /* يرجع 3 أعمدة */
+  }
 }
 
 .form-group {
@@ -325,6 +415,7 @@ body {
   padding: 22px 28px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
   animation: slideIn 0.4s ease;
 }
@@ -533,9 +624,9 @@ body {
 }
 
 @media (max-width: 768px) {
-  .form-grid {
+  /* .form-grid {
     grid-template-columns: 1fr 1fr;
-  }
+  } */
   .models-grid,
   .analytics-grid {
     grid-template-columns: 1fr;

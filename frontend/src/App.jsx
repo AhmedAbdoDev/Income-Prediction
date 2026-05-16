@@ -26,6 +26,7 @@ const METRICS = [
 export default function App() {
   const [page, setPage] = useState("predict");
   const [online, setOnline] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const checkOnline = async () => {
       try {
@@ -52,12 +53,27 @@ export default function App() {
           </div>
         </div>
 
-        <div className="nav-center">
+        {/* زرار الهامبرجر بيظهر في الشاشات الصغيرة بس */}
+        <button
+          className={`menu-toggle ${menuOpen ? "open" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        {/* تعديل كلاس الـ nav-center ليتجاوب مع حالة الفتح والقفل */}
+        <div className={`nav-center ${menuOpen ? "menu-show" : ""}`}>
           {["predict", "models", "analytics"].map((p) => (
             <button
               key={p}
               className={`nav-btn ${page === p ? "active" : ""}`}
-              onClick={() => setPage(p)}
+              onClick={() => {
+                setPage(p);
+                setMenuOpen(false); // يقفل المنيو أوتوماتيك أول ما تضغط على أي زرار
+              }}
             >
               {p}
             </button>
