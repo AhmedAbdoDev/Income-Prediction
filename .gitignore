@@ -1,8 +1,6 @@
 .venv
 learning.py
 __pycache__
-analytics
-models_analytics
 
 # Logs
 logs
